@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:14.8-bullseye
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./.env.dev.db
+
+  web:
+    build: .
+    restart: always
+    command: ["./wait-for-it.sh", "db:5432", "--", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+    ports:
+      - 8000:8000
+    volumes:
+      - ./online_shop:/usr/src/app/online_shop
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
