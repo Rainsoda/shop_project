@@ -143,3 +143,6 @@ AUTH_USER_MODEL = "accounts.CustomUser"
 # Media files configuration
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+# Cart session configuration
+CART_SESSION_ID = "cart"
